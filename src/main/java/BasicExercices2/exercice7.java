@@ -6,8 +6,6 @@
 
 package BasicExercices2;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class exercice7 {
@@ -18,22 +16,16 @@ public class exercice7 {
         System.out.print("Introduce el número de productos vendidos: ");
         int sales = scanner1.nextInt();
 
-        List<Double> prices = new ArrayList<Double>();
+        double prices = 0;
 
-        for (int i = 0; i < sales; i++) {
+        for (int i = 1; i <= sales; i++) {
             Scanner scanner2 = new Scanner(System.in);
-            System.out.print("Introduce el valor del producto " + (i+1) + " ");
-            double price = scanner2.nextDouble();
-            prices.add(price);
+            System.out.print("Introduce el valor del producto " + (i) + " ");
+            double newPrice = scanner2.nextDouble();
+            prices += newPrice;
+
         }
 
-//        for (int j = 0; j < prices.size(); j++){
-//            double totalAmount *= prices.get(j);
-//        }
-//
-//        System.out.println("Has introducido " + sales + " productos");
-//        System.out.println("El valor total de los productos es " + totalAmount);
-
-        System.out.println(prices);
+        System.out.println("El valor total de los productos es " + prices);
     }
 }

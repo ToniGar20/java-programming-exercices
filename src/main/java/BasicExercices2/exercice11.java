@@ -17,6 +17,20 @@ public class exercice11 {
         Scanner scanner2 = new Scanner(System.in);
         System.out.print("Introduce el segundo número: ");
         int number2 = scanner2.nextInt();
+        int max = 0;
+        int min = 0;
+
+        if (number1>number2){
+            max = number1;
+            min = number2;
+        } else {
+            max = number2;
+            min = number1;
+        }
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println(Math.round(Math.random()*(max-min) + min));
+        }
 
     }
 }
