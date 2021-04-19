@@ -38,7 +38,7 @@ public class Calculator {
         return b;
     }
 
-    public static  boolean repeat = true;
+    public static boolean repeat = true;
 
     public static void main(String[] args) {
         System.out.println("BIENVENIDO A LA APLICACIÓN CALCULADORA");
