@@ -1,11 +1,13 @@
 package Practice2;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class GeneralPractice {
-
     public static boolean repeat = true;
 
     public static void main(String[] args) {
@@ -41,6 +43,7 @@ public class GeneralPractice {
                     firstMethod();
                     break;
                 case 2:
+                    secondMethod();
                     break;
                 case 3:
                     break;
@@ -73,14 +76,42 @@ public class GeneralPractice {
         }
     }
 
-    public static void firstMethod(){
+    public static void firstMethod() {
         List<String> numbers = new ArrayList<String>();
         for (int i = 1; numbers.size() < 5; i++) {
-            System.out.println("Introduce el número " + i);
-            Scanner scanner = new Scanner(System.in);
-            String newNumber = scanner.nextLine();
+            String newNumber=makeQuestion("Introduce el número " + i);
             numbers.add(newNumber);
         }
-        System.out.println("Tus números introducidos son los siguientes: " + numbers);
+        for (int i = 0; i < numbers.size(); i++) {
+            System.out.print(numbers.get(i) + " ");
+        }
+        System.out.println("son tus números introducidos.");
     }
+
+    public static void secondMethod(){
+        List<String> numbers = new ArrayList<String>();
+        for (int i = 1; numbers.size() < 5; i++) {
+            String newNumber=makeQuestion("Introduce el número " + i);
+            numbers.add(newNumber);
+        }
+        for (int i = numbers.size()-1; i >= 0; i--) {
+            System.out.print(numbers.get(i) + " ");
+        }
+        System.out.println("son tus números introducidos en orden INVERSO.");
+    }
+
+        public static String makeQuestion(String text) {
+            String valor = " ";
+            try {
+                InputStreamReader isr = new InputStreamReader(System.in);
+                BufferedReader br = new BufferedReader (isr);
+                System.out.print(text + ": ");
+                valor = br.readLine();
+            } catch (IOException ex) {
+                System.out.println("Error");
+            }
+            return valor;
+        }
+
+
 }
