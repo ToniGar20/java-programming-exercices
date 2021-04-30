@@ -48,16 +48,22 @@ public class GeneralPractice {
                 case 3:
                     break;
                 case 4:
+                    fourthMethod();
                     break;
                 case 5:
+                    fifthMethod();
                     break;
                 case 6:
+                    sixthMethod();
                     break;
                 case 7:
+                    seventhMethod();
                     break;
                 case 8:
+                    eightMethod();
                     break;
                 case 9:
+                    ninthMethod();
                     break;
                 case 0:
                     System.out.println("La aplicación ha finalizado.");
@@ -76,10 +82,23 @@ public class GeneralPractice {
         }
     }
 
+    public static String makeQuestion(String text) {
+        String valor = " ";
+        try {
+            InputStreamReader isr = new InputStreamReader(System.in);
+            BufferedReader br = new BufferedReader(isr);
+            System.out.print(text + ": ");
+            valor = br.readLine();
+        } catch (IOException ex) {
+            System.out.println("Error");
+        }
+        return valor;
+    }
+
     public static void firstMethod() {
         List<String> numbers = new ArrayList<String>();
         for (int i = 1; numbers.size() < 5; i++) {
-            String newNumber=makeQuestion("Introduce el número " + i);
+            String newNumber = makeQuestion("Introduce el número " + i);
             numbers.add(newNumber);
         }
         for (int i = 0; i < numbers.size(); i++) {
@@ -88,30 +107,52 @@ public class GeneralPractice {
         System.out.println("son tus números introducidos.");
     }
 
-    public static void secondMethod(){
+    public static void secondMethod() {
         List<String> numbers = new ArrayList<String>();
         for (int i = 1; numbers.size() < 5; i++) {
-            String newNumber=makeQuestion("Introduce el número " + i);
+            String newNumber = makeQuestion("Introduce el número " + i);
             numbers.add(newNumber);
         }
-        for (int i = numbers.size()-1; i >= 0; i--) {
+        for (int i = numbers.size() - 1; i >= 0; i--) {
             System.out.print(numbers.get(i) + " ");
         }
         System.out.println("son tus números introducidos en orden INVERSO.");
     }
 
-        public static String makeQuestion(String text) {
-            String valor = " ";
-            try {
-                InputStreamReader isr = new InputStreamReader(System.in);
-                BufferedReader br = new BufferedReader (isr);
-                System.out.print(text + ": ");
-                valor = br.readLine();
-            } catch (IOException ex) {
-                System.out.println("Error");
-            }
-            return valor;
-        }
+    public static void fourthMethod() {
+        String newText = makeQuestion("Introduce texto o escribe algo");
+        String noSpaceText = newText.replace(" ", "");
+        System.out.println("Tu cadena tiene " + noSpaceText.length() + " caracteres.");
+    }
 
+    public static void fifthMethod() {
+        String newText = makeQuestion("Introduce texto o escribe algo");
+        String reverse = new StringBuffer(newText).reverse().toString();
+        System.out.println("La cadena de texto al revés: " + reverse);
+    }
 
-}
+    public static void sixthMethod(){
+        String newText = makeQuestion("Introduce texto o escribe algo");
+        String noSpaceText = newText.replace(" ", "");
+        System.out.println("La cadena de texto sin espacios: " + noSpaceText);
+    }
+
+    public static void seventhMethod(){
+        String newText1 = makeQuestion("Introduce un primer texto o escribe algo");
+        String newText2 = makeQuestion("Introduce un segundo texto o escribe algo");
+        System.out.println("El resultado de unir ambas cadenas es:");
+        System.out.println(newText1 + " " + newText2);
+    }
+
+    public static void eightMethod(){
+        char a = makeQuestion("Introduce una vocal").charAt(0);
+        String text = makeQuestion("Introduce un texto o escribe algo");
+        //String replacedText = text.replace(a,)
+
+    }
+
+    public static void ninthMethod(){
+
+    }
+
+    }
