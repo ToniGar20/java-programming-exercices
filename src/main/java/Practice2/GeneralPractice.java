@@ -3,7 +3,9 @@ package Practice2;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,9 +33,8 @@ public class GeneralPractice {
             System.out.println(" ");
             System.out.println("0. Salir de la aplicación");
             System.out.println("=====================================================================");
-            Scanner operationSelected = new Scanner(System.in);
-            System.out.print("Introducir número de la operación seleccionada: ");
-            int operation = operationSelected.nextInt();
+
+            int operation = Integer.parseInt(makeQuestion("Introducir número de la operación seleccionada: "));
 
             //La variable operation será evaluada y según su valor, llamará a los diferentes métodos de la operación.
             //Añadir que para cada método se le pasan el primer valor y el segundo que son los parámetros de entrada
@@ -46,6 +47,7 @@ public class GeneralPractice {
                     secondMethod();
                     break;
                 case 3:
+                    thirdMethod();
                     break;
                 case 4:
                     fourthMethod();
@@ -60,7 +62,7 @@ public class GeneralPractice {
                     seventhMethod();
                     break;
                 case 8:
-                    eightMethod();
+                    eighthMethod();
                     break;
                 case 9:
                     ninthMethod();
@@ -83,22 +85,22 @@ public class GeneralPractice {
     }
 
     public static String makeQuestion(String text) {
-        String valor = " ";
+        String value = " ";
         try {
             InputStreamReader isr = new InputStreamReader(System.in);
-            BufferedReader br = new BufferedReader(isr);
+            BufferedReader bf = new BufferedReader(isr);
             System.out.print(text + ": ");
-            valor = br.readLine();
+            value = bf.readLine();
         } catch (IOException ex) {
-            System.out.println("Error");
+            System.out.println("ERROR WITH SYSTEM.IN!");
         }
-        return valor;
+        return value;
     }
 
     public static void firstMethod() {
-        List<String> numbers = new ArrayList<String>();
+        List<Integer> numbers = new ArrayList<Integer>();
         for (int i = 1; numbers.size() < 5; i++) {
-            String newNumber = makeQuestion("Introduce el número " + i);
+            int newNumber = Integer.parseInt(makeQuestion("Introduce el número " + i));
             numbers.add(newNumber);
         }
         for (int i = 0; i < numbers.size(); i++) {
@@ -108,15 +110,35 @@ public class GeneralPractice {
     }
 
     public static void secondMethod() {
-        List<String> numbers = new ArrayList<String>();
+        List<Integer> numbers = new ArrayList<Integer>();
         for (int i = 1; numbers.size() < 5; i++) {
-            String newNumber = makeQuestion("Introduce el número " + i);
+            int newNumber = Integer.parseInt(makeQuestion("Introduce el número " + i));
             numbers.add(newNumber);
         }
         for (int i = numbers.size() - 1; i >= 0; i--) {
             System.out.print(numbers.get(i) + " ");
         }
         System.out.println("son tus números introducidos en orden INVERSO.");
+    }
+
+    public static void thirdMethod(){
+        List<Integer> numbers = new ArrayList<Integer>();
+        for (int i = 1; numbers.size() < 5; i++) {
+            int newNumber = Integer.parseInt(makeQuestion("Introduce el número " + i));
+            numbers.add(newNumber);
+        }
+
+        int positive = 0;
+        int negative = 0;
+        for (int i = 0; i < numbers.size(); i++) {
+            if(numbers.get(i) >= 0){
+                positive += numbers.get(i);
+            } else {
+                negative += numbers.get(i);
+            }
+        }
+        System.out.println("La suma de los números POSITIVOS que has introducido es " + positive);
+        System.out.println("La suma de los números NEGATIVOS que has introducido es " + negative);
     }
 
     public static void fourthMethod() {
@@ -144,15 +166,20 @@ public class GeneralPractice {
         System.out.println(newText1 + " " + newText2);
     }
 
-    public static void eightMethod(){
-        char a = makeQuestion("Introduce una vocal").charAt(0);
+    public static void eighthMethod(){
+        String myVocal = makeQuestion("Introduce una vocal");
         String text = makeQuestion("Introduce un texto o escribe algo");
-        //String replacedText = text.replace(a,)
 
+        String newText = text.replaceAll("[aeiouAEIOU]",myVocal);
+        System.out.println("Al sustituir todas las vocales por la que has puesto...");
+        System.out.println(newText);
     }
 
     public static void ninthMethod(){
-
+        String text = makeQuestion("Introduce un texto o escribe algo");
+        byte[] textBytes = text.getBytes(StandardCharsets.UTF_8);
+        System.out.println("El valor ASCII de tu texto es:");
+        System.out.println(Arrays.toString(textBytes));
     }
 
-    }
+}
