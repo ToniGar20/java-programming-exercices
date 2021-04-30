@@ -16,7 +16,6 @@ public class GeneralPractice {
         System.out.println("BIENVENIDO A LA APLICACIÓN DE EJERCICIOS");
         while (repeat) {
 
-            //Hasta la línea 72 se pasan por la consola los mensajes para usar la app.
             System.out.println("=====================================================================");
             System.out.println("MENÚ PRINCIPAL");
             System.out.println("Introduce una de las siguientes opciones para usar la aplicación:");
