@@ -1,0 +1,68 @@
+package Practice3;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+
+public class Main{
+
+    public static boolean repeat = true;
+
+    public static void main(String[] args) {
+
+        Integer[][] moneyBillsCharge = {{500, 1}, {200, 3}, {100, 0}, {50, 0}, {20, 0}, {10, 18}, {5, 25}};
+        ATM myATM = new ATM();
+
+        myATM.setMoneyBills(moneyBillsCharge);
+        DebitCard myCard1 = new DebitCard("12345678a", 1111, "Fran", "Fran", 20000);
+        CreditCard myCard2 = new CreditCard("87654321b", 2222, "Javi", "Javi", 1000, 5000);
+        myATM.getRegisteredCards().add(myCard1);
+        myATM.getRegisteredCards().add(myCard2);
+
+        System.out.println("BIENVENIDO AL CAJERO AUTOMÁTICO");
+        while (repeat) {
+            System.out.println("=====================================================================");
+            System.out.println("MENÚ PRINCIPAL");
+            System.out.println("Introduce una de las siguientes opciones para usar el CAJERO AUTOMÁTICO:");
+            System.out.println("=====================================================================");
+            System.out.println("1. Sacar dinero");
+            System.out.println("2. Salir");
+            System.out.println("=====================================================================");
+
+            int option = Integer.parseInt(makeQuestion("Introducir número de la opción seleccionada"));
+
+            switch (option) {
+                case 1:
+                    break;
+                case 2:
+                    System.out.println("La aplicación ha finalizado.");
+                    repeat = false;
+                    break;
+                default:
+                    System.out.println("El valor introducido no es válido.");
+                    break;
+            }
+
+            System.out.println("Pulsa cualquier tecla.");
+            Scanner scanner1 = new Scanner(System.in);
+            String inputline = scanner1.nextLine();
+        }
+    }
+
+    public static String makeQuestion(String text) {
+        String value = " ";
+        try {
+            InputStreamReader isr = new InputStreamReader(System.in);
+            BufferedReader bf = new BufferedReader(isr);
+            System.out.print(text + ": ");
+            value = bf.readLine();
+        } catch (IOException ex) {
+            System.out.println("ERROR WITH SYSTEM.IN!");
+        }
+        return value;
+    }
+
+
+
+}
