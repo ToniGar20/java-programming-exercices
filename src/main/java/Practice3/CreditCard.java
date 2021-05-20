@@ -2,33 +2,29 @@ package Practice3;
 
 public class CreditCard extends Card{
 
-    Double availableBalance;
-    Double availableCredit;
+    public Integer availableBalance;
+    public Integer availableCredit;
 
-    public Double getAvailableBalance() {
-        return availableBalance;
-    }
+    public Integer getAvailableBalance() { return availableBalance; }
 
-    public void setAvailableBalance(Double availableBalance) {
-        this.availableBalance = availableBalance;
-    }
+    public void setAvailableBalance(Integer availableBalance) { this.availableBalance = availableBalance; }
 
-    public Double getAvailableCredit() {
-        return availableCredit;
-    }
+    public Integer getAvailableCredit() { return availableCredit; }
 
-    public void setAvailableCredit(Double availableCredit) {
-        this.availableCredit = availableCredit;
-    }
+    public void setAvailableCredit(Integer availableCredit) { this.availableCredit = availableCredit; }
 
     //Constructor with parameters
-    public CreditCard(Double availableBalance, Double availableCredit) {
-        this.availableBalance = availableBalance;
-        this.availableCredit = availableCredit;
-    }
+
+
+    public CreditCard(String NIF, int PIN, String name, String surname, boolean cardStatus, Integer availableBalance, Integer availableCredit) {
+            super(NIF,PIN,name,surname,cardStatus);
+            this.availableBalance = availableBalance;
+            this.availableCredit = availableCredit;
+        }
+
 
     //Empty constructor
-    public CreditCard(String s, int i, String javi, String javi1, int i1, int i2){
+    public CreditCard(){
 
     }
 }

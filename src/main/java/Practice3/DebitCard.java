@@ -2,23 +2,27 @@ package Practice3;
 
 public class DebitCard extends Card {
 
-    Double availableBalance;
+    private Integer availableBalance;
 
-    public Double getAvailableBalance() {
+    public Integer getAvailableBalance() {
         return availableBalance;
     }
 
-    public void setAvailableBalance(Double availableBalance) {
+    public void setAvailableBalance(Integer availableBalance) {
         this.availableBalance = availableBalance;
     }
 
     //Constructor with parameters
-    public DebitCard(Double availableBalance) {
+    public DebitCard(String NIF, int PIN, String name, String surname, boolean cardStatus, Integer availableBalance) {
+        super(NIF,PIN,name,surname,cardStatus);
         this.availableBalance = availableBalance;
     }
 
-
     //Empty constructor
-    public DebitCard(String s, int i, String fran, String fran1, int i1){
+    public DebitCard(){
     }
+
+//    @Override
+//    public void showCard(Card card) {
+//    }
 }

@@ -2,11 +2,11 @@ package Practice3;
 
 public class Card {
 
-    String NIF;
-    Integer PIN;
-    String name;
-    String surname;
-    boolean cardStatus;
+    private String NIF;
+    private Integer PIN;
+    private String name;
+    private String surname;
+    private boolean cardStatus;
 
     public String getNIF() {
         return NIF;
@@ -60,4 +60,20 @@ public class Card {
     //Empty constructor
     public Card() {
     }
+
+    public static void showCard(){
+        System.out.println("Tarjetas disponibles:");
+        System.out.println("-----------------");
+        for (Card cards : ATM.getRegisteredCards()){
+            System.out.println("NIF: " + cards.getNIF());
+            System.out.println("Nombre y apellido: " + cards.getName() + " " + cards.getSurname());
+            System.out.println("-----------------");
+        }
+
+    }
+
+
+
+
 }
+
