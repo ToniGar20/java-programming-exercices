@@ -64,16 +64,25 @@ public class Card {
     public static void showCard(){
         System.out.println("Tarjetas disponibles:");
         System.out.println("-----------------");
-        for (Card cards : ATM.getRegisteredCards()){
+        for (int i = 0; i < ATM.getRegisteredCards().size(); i++) {
+            System.out.println(ATM.getRegisteredCards().get(i).toString());
+        }
+
+        /*for (Card cards : ATM.getRegisteredCards()){
+            System.out.println("-----------------");
             System.out.println("NIF: " + cards.getNIF());
             System.out.println("Nombre y apellido: " + cards.getName() + " " + cards.getSurname());
-            System.out.println("-----------------");
-        }
+        }*/
 
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "-----------------" +
+                "\nNIF=" + NIF +
+                "\nNombre y apellido='" + name + " " + surname +
+                "\nCardStatus=" + cardStatus +
+                "-----------------";
+    }
 }
 
