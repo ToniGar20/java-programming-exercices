@@ -40,8 +40,13 @@ public class Card {
         this.surname = surname;
     }
 
-    public boolean isCardStatus() {
-        return cardStatus;
+    public String isCardStatus() {
+        if(cardStatus){
+            return "Tarjeta activa";
+        } else {
+            return "Tarjeta inactiva";
+        }
+
     }
 
     public void setCardStatus(boolean cardStatus) {
@@ -68,21 +73,22 @@ public class Card {
             System.out.println(ATM.getRegisteredCards().get(i).toString());
         }
 
-        /*for (Card cards : ATM.getRegisteredCards()){
-            System.out.println("-----------------");
-            System.out.println("NIF: " + cards.getNIF());
-            System.out.println("Nombre y apellido: " + cards.getName() + " " + cards.getSurname());
-        }*/
+        /**
+         * Este método showCard al final llama a toString que, mediante override en Debit y Credit hará que
+         * imprima pues una tarjeta u otra de cada tipo. ¿Por qué? porque en el main ya se le está indicando...
+         * de qué tipo es cada una!
+          */
 
     }
 
     @Override
     public String toString() {
         return "-----------------" +
-                "\nNIF=" + NIF +
-                "\nNombre y apellido='" + name + " " + surname +
-                "\nCardStatus=" + cardStatus +
+                "\nNIF=" + getNIF() +
+                "\nNombre y apellido='" + getName() + " " + getSurname() +
+                "\nCardStatus=" + isCardStatus() +
                 "-----------------";
     }
+
 }
 

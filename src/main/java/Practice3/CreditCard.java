@@ -27,4 +27,12 @@ public class CreditCard extends Card{
     public CreditCard(){
 
     }
+
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "availableBalance=" + availableBalance +
+                ", availableCredit=" + availableCredit +
+                '}';
+    }
 }
