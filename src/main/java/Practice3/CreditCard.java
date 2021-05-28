@@ -14,8 +14,6 @@ public class CreditCard extends Card{
     public void setAvailableCredit(Integer availableCredit) { this.availableCredit = availableCredit; }
 
     //Constructor with parameters
-
-
     public CreditCard(String NIF, int PIN, String name, String surname, boolean cardStatus, Integer availableBalance, Integer availableCredit) {
             super(NIF,PIN,name,surname,cardStatus);
             this.availableBalance = availableBalance;
@@ -30,9 +28,11 @@ public class CreditCard extends Card{
 
     @Override
     public String toString() {
-        return "CreditCard{" +
-                "availableBalance=" + availableBalance +
-                ", availableCredit=" + availableCredit +
-                '}';
+        return
+                "\nName and surname: " + getName() + " " + getSurname() +
+                "\nCard Number: " + getNIF().toUpperCase() +
+                "\nAvailable Balance: " + getAvailableBalance() +
+                "\nAvailable Credit: " + getAvailableCredit() +
+                "\nCardStatus: " + isCardStatus();
     }
 }
