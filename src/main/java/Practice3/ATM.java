@@ -56,7 +56,9 @@ public class ATM {
     public static void showMoneyBills(){
         System.out.println("Billetes disponibles en el cajero");
         for (int i = 0; i < getMoneyBills().length ; i++) {
-            System.out.println(moneyBills[i][1] + " billetes de " + moneyBills[i][0] + "€");
+            if (moneyBills[i][1] > 0) {
+                System.out.println(moneyBills[i][1] + " billetes de " + moneyBills[i][0] + "€");
+            }
         }
         System.out.println("======================");
     }
@@ -77,8 +79,6 @@ public class ATM {
             for (int i = 0; i < getMoneyBills().length; i++) {
                 if (moneyBills[i][0] <= amountRequest) {
                     int noteCount = amountRequest / moneyBills[i][0];
-                    System.out.println(noteCount);
-
                     if (moneyBills[i][1] > 0) {
                         billsCount[i][1] = noteCount >= moneyBills[i][1] ? moneyBills[i][1] : noteCount;
                         moneyBills[i][1] = noteCount >= moneyBills[i][1] ? 0 : moneyBills[i][1] - noteCount;
@@ -96,7 +96,6 @@ public class ATM {
             for (int i = 0; i < billsCount.length; i++) {
                 if (billsCount[i][1] != 0) {
                     System.out.println(billsCount[i][1] + " billete/s de " + billsCount[i][0] + "€");
-                    System.out.println("Total retirado: " + amountRequest);
                 }
             }
         }
