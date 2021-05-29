@@ -37,10 +37,10 @@ public class DebitCard extends Card {
     @Override
     public String toString() {
         return
-                "\nName and surname: " + getName() + " " + getSurname() +
-                "\nCard Number: " + getNIF().toUpperCase() +
-                "\nAvailableBalance: " + getAvailableBalance() +
-                "\nCardStatus: " + isCardStatus();
+                "\nNombre y apellidos: " + getName() + " " + getSurname() +
+                "\nNIF: " + getNIF().toUpperCase() +
+                "\nSaldo disponible: " + getAvailableBalance() +
+                "\nDébito: " + isCardStatus();
 
     }
 }

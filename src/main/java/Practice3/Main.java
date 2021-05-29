@@ -34,7 +34,10 @@ public class Main{
 
             switch (option) {
                 case 1:
-                    Card.showCard();
+                    ATM.showMoneyBills();
+                    Card.showCards();
+                    ATM.takeMoneyOut();
+                    ATM.showMoneyBills();
                     break;
                 case 2:
                     System.out.println("La aplicación ha finalizado.");
@@ -45,7 +48,7 @@ public class Main{
                     break;
             }
 
-            System.out.println("Pulsa cualquier tecla.");
+            System.out.println("Pulsa cualquier tecla para continuar.");
             Scanner scanner1 = new Scanner(System.in);
             String inputline = scanner1.nextLine();
         }

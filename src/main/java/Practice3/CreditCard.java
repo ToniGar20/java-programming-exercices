@@ -29,10 +29,10 @@ public class CreditCard extends Card{
     @Override
     public String toString() {
         return
-                "\nName and surname: " + getName() + " " + getSurname() +
-                "\nCard Number: " + getNIF().toUpperCase() +
-                "\nAvailable Balance: " + getAvailableBalance() +
-                "\nAvailable Credit: " + getAvailableCredit() +
-                "\nCardStatus: " + isCardStatus();
+                "\nNombre y apellidos: " + getName() + " " + getSurname() +
+                "\nNIF: " + getNIF().toUpperCase() +
+                "\nSaldo disponible: " + getAvailableBalance() +
+                "\nCréido disponible: " + getAvailableCredit() +
+                "\nCrédito: " + isCardStatus();
     }
 }

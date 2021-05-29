@@ -66,7 +66,7 @@ public class Card {
     public Card() {
     }
 
-    public static void showCard(){
+    public static void showCards(){
         System.out.println("Tarjetas disponibles:");
         for (int i = 0; i < ATM.getRegisteredCards().size(); i++) {
             System.out.println(ATM.getRegisteredCards().get(i).toString());

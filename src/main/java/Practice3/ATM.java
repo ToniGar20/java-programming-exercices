@@ -1,7 +1,6 @@
 package Practice3;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static java.lang.Integer.parseInt;
 
@@ -54,29 +53,110 @@ public class ATM {
     public ATM() {
     }
 
-    public void takeMoneyOut(String NIF, Integer PIN){
-        for (int i = 0; i < getRegisteredCards().size(); i++) {
-            if (getRegisteredCards().get(i).getNIF().equals(NIF)){
-                System.out.println("El NIF es correcto");
-                if(getRegisteredCards().get(i).getPIN().equals(PIN)){
-                    System.out.println("El PIN es correcto");
-                    int dineroRetirar = parseInt(Main.makeQuestion("¿Cuanto dinero quieres sacar?"));
+    public static void showMoneyBills(){
+        System.out.println("Billetes disponibles en el cajero");
+        for (int i = 0; i < getMoneyBills().length ; i++) {
+            System.out.println(moneyBills[i][1] + " billetes de " + moneyBills[i][0] + "€");
+        }
+        System.out.println("======================");
+    }
 
-                    // No puedo hacer el get del saldo de la tarjeta porque en la lista se guardan tarjetas, no saldo
 
-                    // Duda principal. La lista es de tipo Card y no guarda los datos de Debit y Credit...
+    public static void updateATMBills(int amountRequest) {
+        int disposableMoney = 0;
+        for (int i = 0; i < moneyBills.length; i++) {
+            disposableMoney += moneyBills[i][0] * moneyBills[i][1];
+        }
+        if (amountRequest > disposableMoney) {
+            System.out.println("El importe solicitado no está disponbile");
+            System.out.println("La retirada máxima es de: " + disposableMoney);
+        } else {
 
+            int[][] billsCount = {{500, 0}, {200, 0}, {100, 0}, {50, 0}, {20, 0}, {10, 0}, {5, 0}};
+
+            for (int i = 0; i < getMoneyBills().length; i++) {
+                if (moneyBills[i][0] <= amountRequest) {
+                    int noteCount = amountRequest / moneyBills[i][0];
+                    System.out.println(noteCount);
+
+                    if (moneyBills[i][1] > 0) {
+                        billsCount[i][1] = noteCount >= moneyBills[i][1] ? moneyBills[i][1] : noteCount;
+                        moneyBills[i][1] = noteCount >= moneyBills[i][1] ? 0 : moneyBills[i][1] - noteCount;
+                        amountRequest = amountRequest - (billsCount[i][1] * moneyBills[i][0]);
+                    }
+                }
+            }
+
+            /**
+             * Se muestran los billetes que se han extraído y el tipo de cada uno:
+             */
+
+            System.out.println("Dinero y billetes retirados: ");
+
+            for (int i = 0; i < billsCount.length; i++) {
+                if (billsCount[i][1] != 0) {
+                    System.out.println(billsCount[i][1] + " billete/s de " + billsCount[i][0] + "€");
+                    System.out.println("Total retirado: " + amountRequest);
                 }
             }
         }
     }
 
-    public static void showMoneyBills(){
-        System.out.println("Billetes disponibles en el cajero");
-        for (int i = 0; i < getMoneyBills().length ; i++) {
-                System.out.println(moneyBills[i][1] + " billetes de " + moneyBills[i][0] + "€");
+
+    public static void takeMoneyOut(){
+        String newNIF = Main.makeQuestion("Introduce tu NIF: ");
+        int newPIN = parseInt(Main.makeQuestion("Introduce tu PIN: "));
+
+        for (int i = 0; i < getRegisteredCards().size(); i++) {
+            if (getRegisteredCards().get(i).getNIF().equals(newNIF)){
+                System.out.println("El NIF es correcto.");
+                if (getRegisteredCards().get(i).getPIN().equals(newPIN)) {
+                    System.out.println("El PIN es correcto.");
+
+                    Card activeCard = getRegisteredCards().get(i);
+                    int moneyOutRequest = parseInt(Main.makeQuestion("¿Cuanto dinero quieres sacar?"));
+
+                    if (activeCard instanceof DebitCard) {
+                        ((DebitCard) activeCard).setAvailableBalance(((DebitCard) activeCard).getAvailableBalance() - moneyOutRequest);
+                        updateATMBills(moneyOutRequest);
+                        break;
+                    } else {
+                            System.out.println("No hay saldo suficiente");
+                    }
+
+                    if (activeCard instanceof CreditCard) {
+                        if(((CreditCard) activeCard).getAvailableBalance() >= moneyOutRequest) {
+                            ((CreditCard) activeCard).setAvailableBalance(((CreditCard) activeCard).getAvailableBalance() - moneyOutRequest);
+                            updateATMBills(moneyOutRequest);
+                            break;
+                        } else if (((CreditCard) activeCard).getAvailableBalance() + ((CreditCard) activeCard).getAvailableCredit() <= moneyOutRequest) {
+                            int creditMoneyOutRequest = moneyOutRequest - ((CreditCard) activeCard).getAvailableBalance();
+                            ((CreditCard) activeCard).setAvailableBalance(0);
+                            ((CreditCard) activeCard).setAvailableBalance(((CreditCard) activeCard).getAvailableCredit() - creditMoneyOutRequest);
+                            updateATMBills(moneyOutRequest);
+                        } else if (((CreditCard) activeCard).getAvailableBalance() + ((CreditCard) activeCard).getAvailableCredit() < moneyOutRequest) {
+                        System.out.println("No hay saldo y crédito suficiente");
+                        break;
+                        }
+                    }
+                }
+                else {
+                    System.out.println("El PIN es incorrecto. Volviendo al menú principal.");
+                    break;
+                }
+            } else {
+                System.out.println("El NIF es incorrecto. Volviendo al menú principal.");
+                break;
+            }
         }
-        System.out.println("======================");
+
+
+
     }
+
+
+
+
+
 
 }
