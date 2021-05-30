@@ -5,6 +5,8 @@ public class CreditCard extends Card{
     public Integer availableBalance;
     public Integer availableCredit;
 
+    //Getters & Setters
+
     public Integer getAvailableBalance() { return availableBalance; }
 
     public void setAvailableBalance(Integer availableBalance) { this.availableBalance = availableBalance; }
@@ -13,7 +15,7 @@ public class CreditCard extends Card{
 
     public void setAvailableCredit(Integer availableCredit) { this.availableCredit = availableCredit; }
 
-    //Constructor with parameters
+    //Constructor con parámetros
     public CreditCard(String NIF, int PIN, String name, String surname, boolean cardStatus, Integer availableBalance, Integer availableCredit) {
             super(NIF,PIN,name,surname,cardStatus);
             this.availableBalance = availableBalance;
@@ -21,11 +23,12 @@ public class CreditCard extends Card{
         }
 
 
-    //Empty constructor
+    //Constructor vacío
     public CreditCard(){
 
     }
 
+    //Override del toString de la superclase "Card" para devolver los datos de esta subclase
     @Override
     public String toString() {
         return

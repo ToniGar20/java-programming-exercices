@@ -8,6 +8,8 @@ public class Card {
     private String surname;
     private boolean cardStatus;
 
+    //Getters & Setters
+
     public String getNIF() {
         return NIF;
     }
@@ -40,20 +42,20 @@ public class Card {
         this.surname = surname;
     }
 
+    //En este caso se utiliza el booleano para que devuelva un mensaje en función de cada estado
     public String isCardStatus() {
         if(cardStatus){
             return "Tarjeta activa";
         } else {
             return "Tarjeta inactiva";
         }
-
     }
 
     public void setCardStatus(boolean cardStatus) {
         this.cardStatus = cardStatus;
     }
 
-    //Constructor with parameters
+    //Constructor con parámetros
     public Card(String NIF, Integer PIN, String name, String surname, boolean cardStatus) {
         this.NIF = NIF;
         this.PIN = PIN;
@@ -62,10 +64,16 @@ public class Card {
         this.cardStatus = cardStatus;
     }
 
-    //Empty constructor
+    //Constructor vacío
     public Card() {
     }
 
+    /**
+     * Método showCards
+     *
+     * Se recorre la lista de tarjetas de la clase ATM printeando los datos con un toString,
+     * que sobreescribe los datos en cada subclase.
+     */
     public static void showCards(){
         System.out.println("=====================================================================");
         System.out.println("Tarjetas disponibles:");
@@ -79,6 +87,7 @@ public class Card {
           */
     }
 
+    //Método toString principal
     @Override
     public String toString() {
         return

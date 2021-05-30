@@ -7,8 +7,20 @@ import java.util.Scanner;
 
 public class Main{
 
+    //Variable con valor verdadero para mantener la iteración inferior
     public static boolean repeat = true;
 
+    /**
+     * Método Main principal
+     *
+     * A partir de una serie de datos cargados, se inicia un bucle while que repetirá mientras el valor de la variable de la línea 11 no cambie a falso.
+     * Esto se dará cuando se seleccione la opción "salir" (2). El switch con la opción 1 corre los métodos de las clases "ATM" y "Card".
+     *
+     * Se genera también un método llamado "makeQuestion" para no tener que abrir la clase "Scanner"
+     * La variable "inputline" sirve para generar una transición entre operación y operación
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         Integer [][] moneyNotesCharge = {{500, 1}, {200, 3}, {100, 0}, {50, 0}, {20, 0}, {10, 18}, {5, 25}};
