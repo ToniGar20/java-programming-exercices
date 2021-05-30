@@ -59,7 +59,7 @@ public class Main{
                     break;
             }
 
-            System.out.println("Pulsa cualquier tecla para continuar.");
+            System.out.println("Pulsa ENTER para continuar.");
             Scanner scanner1 = new Scanner(System.in);
             String inputline = scanner1.nextLine();
         }

@@ -64,11 +64,14 @@ public class ATM {
     public static void showMoneyNotes(){
         System.out.println("=====================================================================");
         System.out.println("Billetes disponibles en el cajero: ");
+        int totalMoney = 0;
         for (int i = 0; i < getMoneyNotes().length ; i++) {
             if (moneyNotes[i][1] > 0) {
                 System.out.println(moneyNotes[i][1] + " billete/s de " + moneyNotes[i][0] + "€");
+                totalMoney += moneyNotes[i][0] * moneyNotes[i][1];
             }
         }
+        System.out.println("Total disponible: " + totalMoney + "€");
         System.out.println("=====================================================================");
     }
 
@@ -83,8 +86,13 @@ public class ATM {
      * Más comentarios en el método ->
      *
      * @param amountRequest
+     * @return operationStatus: boolean
      */
-    public static void updateATMNotes(int amountRequest) {
+    public static boolean updateATMNotes(int amountRequest) {
+
+        //Declaro variable que servirá para definir con true/false, si hay billetes para cubrir la cantidad solicitada
+        //Aspecto importante porque el valor de esta variable condicionará la actualización del saldo/crédito de las tarjetas
+        boolean operationStatus;
 
         //Se inicia una variable que guardará la cantidad de dinero del cajero.
         //El importe es el valor del billete por la cantidad que haya.
@@ -96,8 +104,8 @@ public class ATM {
         //En caso de que el dinero solicitado sea mayor que el disponible (siempre y cuando la tarjeta del usuario alcance esa cifra),
         //sale un aviso de que no está disponible
         if (amountRequest > disposableMoney) {
-            System.out.println("El importe solicitado no está disponbile");
-            System.out.println("La retirada máxima es de: " + disposableMoney);
+            System.out.println("El importe solicitado no está disponible");
+            operationStatus = false; //Al no esta el importe disponible, la operación no se realiza en el cajero
         } else {
 
             //Y en caso contrario, cuando el importe lo cubra la tarjeta y esté en el cajero:
@@ -127,9 +135,11 @@ public class ATM {
                     System.out.println(notesCount[i][1] + " billete/s de " + notesCount[i][0] + "€");
                 }
             }
-        }
-    }
+            operationStatus = true; //Como la operación se ha realizado, el cajero cambia el estado de la operación
 
+        }
+        return operationStatus; //Se devuelve la variable inicial
+    }
 
     /**
      * Método takeMoneyOut
@@ -190,9 +200,10 @@ public class ATM {
 
             if (activeCard instanceof DebitCard) {
                 if (((DebitCard) activeCard).getAvailableBalance() >= moneyOutRequest) { // Condición de que el débito sea mayor o igual a lo que se quiere retirar
-                    ((DebitCard) activeCard).setAvailableBalance(((DebitCard) activeCard).getAvailableBalance() - moneyOutRequest); //Cast para acceder a las variables de la subclase y restar el importe pedido
-                    updateATMNotes(moneyOutRequest); //Se actualiza el estado del ATM y lo billetes con el importe confirmado
-                    System.out.println("El débito restante en la tarjeta es: " + ((DebitCard) activeCard).getAvailableBalance()); //Se imprime por pantalla el saldo restante
+                    if(updateATMNotes(moneyOutRequest) == true) { //Si el dinero está disponible en el cajero, entonces se actualizará el saldo o crédito
+                        ((DebitCard) activeCard).setAvailableBalance(((DebitCard) activeCard).getAvailableBalance() - moneyOutRequest); //Cast para acceder a las variables de la subclase y restar el importe pedido
+                        System.out.println("El débito restante en la tarjeta es: " + ((DebitCard) activeCard).getAvailableBalance()); //Se imprime por pantalla el saldo restante
+                    }
                     break;
                 } else {
                     System.out.println("No hay saldo suficiente."); //No hay loreymoney :D
@@ -203,10 +214,11 @@ public class ATM {
             if (activeCard instanceof CreditCard) {
                 //Condición 1: Si el dinero se puede cubrir con el saldo disponible; el método es similar al de DebitCard
                 if(((CreditCard) activeCard).getAvailableBalance() >= moneyOutRequest) {
-                    ((CreditCard) activeCard).setAvailableBalance(((CreditCard) activeCard).getAvailableBalance() - moneyOutRequest);
-                    updateATMNotes(moneyOutRequest);
-                    System.out.println("El débito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableBalance());
-                    System.out.println("El crédito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableCredit());
+                    if(updateATMNotes(moneyOutRequest) == true) { //Si el dinero está disponible en el cajero, entonces se actualizará el saldo o crédito
+                        ((CreditCard) activeCard).setAvailableBalance(((CreditCard) activeCard).getAvailableBalance() - moneyOutRequest);
+                        System.out.println("El débito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableBalance());
+                        System.out.println("El crédito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableCredit());
+                    }
                     break;
                 } else if (
                         (((CreditCard) activeCard).getAvailableBalance() < moneyOutRequest)
@@ -215,11 +227,12 @@ public class ATM {
                 ) //Condición 2: si el dinero solicitado es mayor al saldo pero menor o igual que la suma del débito y crédito
                 {
                     int creditMoneyOutRequest = moneyOutRequest - ((CreditCard) activeCard).getAvailableBalance(); //Creo una variable para guardar lo que el saldo no puede cubrir
-                    ((CreditCard) activeCard).setAvailableBalance(0); //Saldo a 0
-                    ((CreditCard) activeCard).setAvailableCredit(((CreditCard) activeCard).getAvailableCredit() - creditMoneyOutRequest); //El crédito será igual a la diferencia del crédito menos lo guardado en la variable anterior
-                    updateATMNotes(moneyOutRequest); //Se actualiza el estado de los billetes del cajero
-                    System.out.println("El débito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableBalance());
-                    System.out.println("El crédito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableCredit());
+                    if (updateATMNotes(moneyOutRequest) == true) { //Si el dinero está disponible en el cajero, entonces se actualizará el saldo o crédito
+                        ((CreditCard) activeCard).setAvailableBalance(0); //Saldo a 0
+                        ((CreditCard) activeCard).setAvailableCredit(((CreditCard) activeCard).getAvailableCredit() - creditMoneyOutRequest); //El crédito será igual a la diferencia del crédito menos lo guardado en la variable anterior
+                        System.out.println("El débito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableBalance());
+                        System.out.println("El crédito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableCredit());
+                    }
                     break;
                 } else if ((((CreditCard) activeCard).getAvailableBalance() + ((CreditCard) activeCard).getAvailableCredit()) < moneyOutRequest) {
                     // Condición 3: si el importe no se puede cubrir con la suma del saldo y el crédito acabamos.
