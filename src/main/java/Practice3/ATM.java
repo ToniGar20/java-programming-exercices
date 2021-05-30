@@ -87,12 +87,10 @@ public class ATM {
                     }
                 }
             }
-
             /**
-             * Se muestran los billetes que se han extraído y el tipo de cada uno:
+             * A continuación se muestran los billetes que se han extraído y el tipo de cada uno:
              */
             System.out.println("Dinero y billetes retirados: ");
-
             for (int i = 0; i < notesCount.length; i++) {
                 if (notesCount[i][1] != 0) {
                     System.out.println(notesCount[i][1] + " billete/s de " + notesCount[i][0] + "€");
@@ -108,60 +106,65 @@ public class ATM {
         String newNIF = Main.makeQuestion("Introduce tu NIF: ");
         int newPIN = parseInt(Main.makeQuestion("Introduce tu PIN: "));
 
-        for (int i = 0; i < getRegisteredCards().size(); i++) {
+        for (int i = 0; i < getRegisteredCards().size(); i++){
             if (getRegisteredCards().get(i).getNIF().equals(newNIF)){
                 System.out.println("El NIF es correcto.");
-                if (getRegisteredCards().get(i).getPIN().equals(newPIN)) {
-                    System.out.println("El PIN es correcto.");
-
-                    Card activeCard = getRegisteredCards().get(i);
-                    System.out.println("=====================================================================");
-                    int moneyOutRequest = parseInt(Main.makeQuestion("¿Cuanto dinero quieres sacar?"));
-                    System.out.println("=====================================================================");
-
-                    if (activeCard instanceof DebitCard) {
-                        if (((DebitCard) activeCard).getAvailableBalance() >= moneyOutRequest) {
-                            ((DebitCard) activeCard).setAvailableBalance(((DebitCard) activeCard).getAvailableBalance() - moneyOutRequest);
-                            updateATMNotes(moneyOutRequest);
-                            System.out.println("El débito restante en la tarjeta es: " + ((DebitCard) activeCard).getAvailableBalance());
-                            break;
-                        } else {
-                            System.out.println("No hay saldo suficiente.");
-                        }
-                    }
-
-                    if (activeCard instanceof CreditCard) {
-                        if(((CreditCard) activeCard).getAvailableBalance() >= moneyOutRequest) {
-                            ((CreditCard) activeCard).setAvailableBalance(((CreditCard) activeCard).getAvailableBalance() - moneyOutRequest);
-                            updateATMNotes(moneyOutRequest);
-                            System.out.println("El débito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableBalance());
-                            System.out.println("El crédito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableCredit());
-                            break;
-                        } else if (
-                                (((CreditCard) activeCard).getAvailableBalance() < moneyOutRequest)
-                                &&
-                                (((CreditCard) activeCard).getAvailableBalance() + ((CreditCard) activeCard).getAvailableCredit() >= moneyOutRequest)
-                        ) {
-                            int creditMoneyOutRequest = moneyOutRequest - ((CreditCard) activeCard).getAvailableBalance();
-                            ((CreditCard) activeCard).setAvailableBalance(0);
-                            ((CreditCard) activeCard).setAvailableCredit(((CreditCard) activeCard).getAvailableCredit() - creditMoneyOutRequest);
-                            updateATMNotes(moneyOutRequest);
-                            System.out.println("El débito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableBalance());
-                            System.out.println("El crédito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableCredit());
-                            break;
-                        } else if ((((CreditCard) activeCard).getAvailableBalance() + ((CreditCard) activeCard).getAvailableCredit()) < moneyOutRequest) {
-                        System.out.println("No hay saldo y crédito suficiente.");
-                        break;
-                        }
-                    }
-                }
-                else {
-                    System.out.println("El PIN es incorrecto. Volviendo al menú principal.");
-                    break;
-                }
+            } else if ((getRegisteredCards().get(i).getNIF() != (newNIF)) && i < (getRegisteredCards().size()-1)) {
+                continue;
             } else {
                 System.out.println("El NIF es incorrecto. Volviendo al menú principal.");
                 break;
+            }
+
+            if (getRegisteredCards().get(i).getPIN().equals(newPIN)){
+                System.out.println("El PIN es correcto.");
+            } else if ((getRegisteredCards().get(i).getPIN() != (newPIN)) && i < (getRegisteredCards().size()-1)) {
+                continue;
+            } else {
+                System.out.println("El PIN es incorrecto. Volviendo al menú principal.");
+                break;
+            }
+
+            Card activeCard = getRegisteredCards().get(i);
+
+            System.out.println("=====================================================================");
+            int moneyOutRequest = parseInt(Main.makeQuestion("¿Cuanto dinero quieres sacar?"));
+            System.out.println("=====================================================================");
+
+            if (activeCard instanceof DebitCard) {
+                if (((DebitCard) activeCard).getAvailableBalance() >= moneyOutRequest) {
+                    ((DebitCard) activeCard).setAvailableBalance(((DebitCard) activeCard).getAvailableBalance() - moneyOutRequest);
+                    updateATMNotes(moneyOutRequest);
+                    System.out.println("El débito restante en la tarjeta es: " + ((DebitCard) activeCard).getAvailableBalance());
+                    break;
+                } else {
+                    System.out.println("No hay saldo suficiente.");
+                }
+            }
+
+            if (activeCard instanceof CreditCard) {
+                if(((CreditCard) activeCard).getAvailableBalance() >= moneyOutRequest) {
+                    ((CreditCard) activeCard).setAvailableBalance(((CreditCard) activeCard).getAvailableBalance() - moneyOutRequest);
+                    updateATMNotes(moneyOutRequest);
+                    System.out.println("El débito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableBalance());
+                    System.out.println("El crédito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableCredit());
+                    break;
+                } else if (
+                        (((CreditCard) activeCard).getAvailableBalance() < moneyOutRequest)
+                                &&
+                                (((CreditCard) activeCard).getAvailableBalance() + ((CreditCard) activeCard).getAvailableCredit() >= moneyOutRequest)
+                ) {
+                    int creditMoneyOutRequest = moneyOutRequest - ((CreditCard) activeCard).getAvailableBalance();
+                    ((CreditCard) activeCard).setAvailableBalance(0);
+                    ((CreditCard) activeCard).setAvailableCredit(((CreditCard) activeCard).getAvailableCredit() - creditMoneyOutRequest);
+                    updateATMNotes(moneyOutRequest);
+                    System.out.println("El débito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableBalance());
+                    System.out.println("El crédito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableCredit());
+                    break;
+                } else if ((((CreditCard) activeCard).getAvailableBalance() + ((CreditCard) activeCard).getAvailableCredit()) < moneyOutRequest) {
+                    System.out.println("No hay saldo y crédito suficiente.");
+                    break;
+                }
             }
         }
     }
