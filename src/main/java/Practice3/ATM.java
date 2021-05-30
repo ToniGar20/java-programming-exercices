@@ -166,7 +166,7 @@ public class ATM {
                 break;
             }
 
-            //Mismo que con el PIN pero para DNI
+            //Mismo que con el DNI pero para PIN
             if (getRegisteredCards().get(i).getPIN().equals(newPIN)){
                 System.out.println("El PIN es correcto.");
             } else if ((getRegisteredCards().get(i).getPIN() != (newPIN)) && i < (getRegisteredCards().size()-1)) {
