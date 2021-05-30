@@ -2,8 +2,8 @@ package Practice3;
 
 public class CreditCard extends Card{
 
-    public Integer availableBalance;
-    public Integer availableCredit;
+    private Integer availableBalance;
+    private Integer availableCredit;
 
     //Getters & Setters
 
