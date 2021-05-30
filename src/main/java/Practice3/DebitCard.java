@@ -41,6 +41,5 @@ public class DebitCard extends Card {
                 "\nNIF: " + getNIF().toUpperCase() +
                 "\nSaldo disponible: " + getAvailableBalance() +
                 "\nDébito: " + isCardStatus();
-
     }
 }

@@ -67,17 +67,16 @@ public class Card {
     }
 
     public static void showCards(){
+        System.out.println("=====================================================================");
         System.out.println("Tarjetas disponibles:");
+        System.out.println("=====================================================================");
         for (int i = 0; i < ATM.getRegisteredCards().size(); i++) {
             System.out.println(ATM.getRegisteredCards().get(i).toString());
         }
-
         /**
-         * Este método showCard trabaja con un método toString que, mediante override en Debit y Credit hará que
-         * imprima pues una tarjeta u otra de cada tipo porque ambas podrán acceder así a las variables de la superclase
-         * ¿Por qué? porque en el Main ya se le está indicando... ¡de qué tipo es cada una!
+         * Este método showCard trabaja con un método toString que, mediante override en Debit y Credit desde Card
+         * imprime una tarjeta u otra según el tipo porque ambas se han creado según tipo en Main y pasadas a la lista
           */
-
     }
 
     @Override
@@ -87,6 +86,4 @@ public class Card {
                 "\nNombre y apellido='" + getName() + " " + getSurname() +
                 "\nCardStatus=" + isCardStatus();
     }
-
 }
-

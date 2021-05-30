@@ -11,10 +11,10 @@ public class Main{
 
     public static void main(String[] args) {
 
-        Integer [][] moneyBillsCharge = {{500, 1}, {200, 3}, {100, 0}, {50, 0}, {20, 0}, {10, 18}, {5, 25}};
+        Integer [][] moneyNotesCharge = {{500, 1}, {200, 3}, {100, 0}, {50, 0}, {20, 0}, {10, 18}, {5, 25}};
         ATM myATM = new ATM();
 
-        myATM.setMoneyBills(moneyBillsCharge);
+        myATM.setMoneyNotes(moneyNotesCharge);
         DebitCard myCard1 = new DebitCard("12345678a", 1111, "Fran", "Perea",true, 20000);
         CreditCard myCard2 = new CreditCard("87654321b", 2222, "Javi", "Cantero", true ,1000, 5000);
         ATM.getRegisteredCards().add(myCard1);
@@ -23,9 +23,9 @@ public class Main{
         System.out.println("BIENVENIDO AL CAJERO AUTOMÁTICO");
         while (repeat) {
             System.out.println("=====================================================================");
-            System.out.println("MENÚ PRINCIPAL");
-            System.out.println("Introduce una de las siguientes opciones:");
+            System.out.println("CAJERO AUTOMÁTICO");
             System.out.println("=====================================================================");
+            System.out.println("Introduce una de las siguientes opciones:");
             System.out.println("1. Sacar dinero");
             System.out.println("2. Salir");
             System.out.println("=====================================================================");
@@ -34,10 +34,10 @@ public class Main{
 
             switch (option) {
                 case 1:
-                    ATM.showMoneyBills();
+                    ATM.showMoneyNotes();
                     Card.showCards();
                     ATM.takeMoneyOut();
-                    ATM.showMoneyBills();
+                    ATM.showMoneyNotes();
                     break;
                 case 2:
                     System.out.println("La aplicación ha finalizado.");
@@ -66,7 +66,4 @@ public class Main{
         }
         return value;
     }
-
-
-
 }
