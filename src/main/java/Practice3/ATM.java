@@ -157,8 +157,8 @@ public class ATM {
         //Generación de variables para el login
         System.out.println("=====================================================================");
         System.out.println("Acceso con NIF Y PIN");
-        String newNIF = Main.makeQuestion("Introduce tu NIF: ");
-        int newPIN = parseInt(Main.makeQuestion("Introduce tu PIN: "));
+        String newNIF = Main.makeQuestion("Introduce tu NIF");
+        int newPIN = parseInt(Main.makeQuestion("Introduce tu PIN"));
 
         //Bucle que iterará para encontrar NIF y PIN en la variable "registeredCards" que guarda todas las tarjetas
         for (int i = 0; i < getRegisteredCards().size(); i++){
