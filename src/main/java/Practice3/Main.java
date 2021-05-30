@@ -15,12 +15,11 @@ public class Main{
         ATM myATM = new ATM();
 
         myATM.setMoneyNotes(moneyNotesCharge);
-        DebitCard myCard1 = new DebitCard("12345678a", 1111, "Fran", "Perea",true, 20000);
-        CreditCard myCard2 = new CreditCard("87654321b", 2222, "Javi", "Cantero", true ,1000, 5000);
+        DebitCard myCard1 = new DebitCard("12345678A", 1111, "Fran", "Perea",true, 20000);
+        CreditCard myCard2 = new CreditCard("87654321B", 2222, "Javi", "Cantero", true ,1000, 5000);
         ATM.getRegisteredCards().add(myCard1);
         ATM.getRegisteredCards().add(myCard2);
 
-        System.out.println("BIENVENIDO AL CAJERO AUTOMÁTICO");
         while (repeat) {
             System.out.println("=====================================================================");
             System.out.println("CAJERO AUTOMÁTICO");

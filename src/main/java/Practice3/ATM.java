@@ -56,7 +56,6 @@ public class ATM {
     public static void showMoneyNotes(){
         System.out.println("=====================================================================");
         System.out.println("Billetes disponibles en el cajero: ");
-        System.out.println("=====================================================================");
         for (int i = 0; i < getMoneyNotes().length ; i++) {
             if (moneyNotes[i][1] > 0) {
                 System.out.println(moneyNotes[i][1] + " billete/s de " + moneyNotes[i][0] + "€");
@@ -105,6 +104,7 @@ public class ATM {
 
     public static void takeMoneyOut(){
         System.out.println("=====================================================================");
+        System.out.println("Acceso con NIF Y PIN");
         String newNIF = Main.makeQuestion("Introduce tu NIF: ");
         int newPIN = parseInt(Main.makeQuestion("Introduce tu PIN: "));
 
@@ -118,13 +118,16 @@ public class ATM {
                     System.out.println("=====================================================================");
                     int moneyOutRequest = parseInt(Main.makeQuestion("¿Cuanto dinero quieres sacar?"));
                     System.out.println("=====================================================================");
+
                     if (activeCard instanceof DebitCard) {
-                        ((DebitCard) activeCard).setAvailableBalance(((DebitCard) activeCard).getAvailableBalance() - moneyOutRequest);
-                        updateATMNotes(moneyOutRequest);
-                        System.out.println("El débito restante en la tarjeta es: " + ((DebitCard) activeCard).getAvailableBalance());
-                        break;
-                    } else {
+                        if (((DebitCard) activeCard).getAvailableBalance() >= moneyOutRequest) {
+                            ((DebitCard) activeCard).setAvailableBalance(((DebitCard) activeCard).getAvailableBalance() - moneyOutRequest);
+                            updateATMNotes(moneyOutRequest);
+                            System.out.println("El débito restante en la tarjeta es: " + ((DebitCard) activeCard).getAvailableBalance());
+                            break;
+                        } else {
                             System.out.println("No hay saldo suficiente.");
+                        }
                     }
 
                     if (activeCard instanceof CreditCard) {
@@ -133,16 +136,20 @@ public class ATM {
                             updateATMNotes(moneyOutRequest);
                             System.out.println("El débito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableBalance());
                             System.out.println("El crédito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableCredit());
-
                             break;
-                        } else if (((CreditCard) activeCard).getAvailableBalance() + ((CreditCard) activeCard).getAvailableCredit() <= moneyOutRequest) {
+                        } else if (
+                                (((CreditCard) activeCard).getAvailableBalance() < moneyOutRequest)
+                                &&
+                                (((CreditCard) activeCard).getAvailableBalance() + ((CreditCard) activeCard).getAvailableCredit() >= moneyOutRequest)
+                        ) {
                             int creditMoneyOutRequest = moneyOutRequest - ((CreditCard) activeCard).getAvailableBalance();
                             ((CreditCard) activeCard).setAvailableBalance(0);
-                            ((CreditCard) activeCard).setAvailableBalance(((CreditCard) activeCard).getAvailableCredit() - creditMoneyOutRequest);
+                            ((CreditCard) activeCard).setAvailableCredit(((CreditCard) activeCard).getAvailableCredit() - creditMoneyOutRequest);
                             updateATMNotes(moneyOutRequest);
                             System.out.println("El débito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableBalance());
                             System.out.println("El crédito restante en la tarjeta es: " + ((CreditCard) activeCard).getAvailableCredit());
-                        } else if (((CreditCard) activeCard).getAvailableBalance() + ((CreditCard) activeCard).getAvailableCredit() < moneyOutRequest) {
+                            break;
+                        } else if ((((CreditCard) activeCard).getAvailableBalance() + ((CreditCard) activeCard).getAvailableCredit()) < moneyOutRequest) {
                         System.out.println("No hay saldo y crédito suficiente.");
                         break;
                         }

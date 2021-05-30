@@ -1,20 +1,8 @@
 package Practice3;
 
-import java.util.ArrayList;
-
 public class DebitCard extends Card {
 
     private Integer availableBalance;
-
-    private static ArrayList<DebitCard> prova = new ArrayList<>();
-
-    public static ArrayList<DebitCard> getProva() {
-        return prova;
-    }
-
-    public static void setProva(ArrayList<DebitCard> prova) {
-        DebitCard.prova = prova;
-    }
 
     public Integer getAvailableBalance() {
         return availableBalance;
